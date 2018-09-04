@@ -51,6 +51,31 @@ public class Oblig1 {
         return teller;
     }
 
+    //Oppgave 7, fletter sammen to strenger til en felles
+    public static String flett(String s, String t) {
+
+        String flettet = "";
+        int lengde = 0;
+
+        //Bruker verdien til den lengste Stringen
+        if (s.length()<t.length()) {
+            lengde = t.length();
+        } else {
+            lengde = s.length();
+        }
+
+        //Legger verdiene annen hvergang
+        for (int i = 0; i<lengde;++i) {
+            if (i<s.length()) {
+                flettet += s.charAt(i);
+            }
+            if (i<t.length()) {
+                flettet += t.charAt(i);
+            }
+        }
+
+        return flettet;
+    }
 
     public static int maks(int[] a) {
         if (a.length < 1) {
