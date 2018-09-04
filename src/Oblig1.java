@@ -27,6 +27,8 @@ public class Oblig1 {
 
     }
 
+
+
     //Oppgave 3, metode som looper igjennom som oppgave to, men kan også ha mange like verdier stokket i en array
     //Sender heller ikke feilkode når tabellen ikke er sortert
     public static int antallUlikesortert(int[] a) {
@@ -51,7 +53,7 @@ public class Oblig1 {
         return teller;
     }
 
-    //Oppgave 7, fletter sammen to strenger til en felles
+    //Oppgave 7a, fletter sammen to strenger til en felles
     public static String flett(String s, String t) {
 
         String flettet = "";
@@ -75,6 +77,32 @@ public class Oblig1 {
         }
 
         return flettet;
+    }
+
+    //Oppgave 7b, fletter sammen x antall stringer til en string
+    public static String flettV2(String[] s) {
+        int antallKolonner = s.length;
+        int antallBostaver = 3;
+        /*
+        for (int i = 0; i<s.length-1; ++i) {
+            if (s[i].length()<s[i+1].length()) {
+                temp = s[i+1].length();
+            }
+        }
+        */
+
+
+        String flettet = "";
+
+        for (int i = 0; i<antallKolonner;++i) {
+
+            for (int j = 0; j<antallBostaver;++j) {
+                flettet += s[j].charAt(i);
+            }
+        }
+
+        return flettet;
+
     }
 
     public static int maks(int[] a) {
