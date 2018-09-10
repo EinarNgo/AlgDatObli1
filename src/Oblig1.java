@@ -92,6 +92,7 @@ public class Oblig1 {
 
 
 
+
     public static int antPartall(int[] a) {
         int antPartall = 0;
         for (int i = 0; i < a.length; i++) {
