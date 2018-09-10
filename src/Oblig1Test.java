@@ -3,13 +3,6 @@ import java.util.Arrays;
 public class Oblig1Test {
     public static void main(String[] args) {
 
-        int[] a = {4,3,2,1};
-        System.out.println("Maks verdi: " + Oblig1.maks(a));
-        for (int i : a) {
-            System.out.print(" " + i);
-        }
-        System.out.println();
-        System.out.println("Antall ombyttinger: " + Oblig1.ombyttinger(a));
 
         int[] opp4 = {6,10,9,4,1,3,8,5,2,7};
         //int[] opp4 = {7, 6, 3, 10, 9, 2, 4, 1, 8, 5};
@@ -46,6 +39,30 @@ public class Oblig1Test {
         System.out.println(Arrays.toString(aa));
         */
 
+        int[] a = {4,3,5,2,1};
+        int[] b = {1,2,3,4,5};
+        int[] c = {1,1,2,2,2};
+        String[] d = {"ADG","BEH","CFI","DED"};
+
+
+        //System.out.println(Oblig1.maks(a));
+
+        System.out.println(Oblig1.antallUlikeSortert(c));
+        System.out.println(Oblig1.flett("ENR","IA"));
+        //  System.out.println(Oblig1.flettV2(d));
+
+
+        String[] test = {"e","eeeee","ee"};
+        int temp = test[0].length();
+
+        for (int i = 0; i < test.length-1;++i) {
+            if (test[i].length()<test[i+1].length()) {
+                temp = test[i+1].length();
+            }
+        }
+
+
+        System.out.println(test.length);
     }
     
 }
