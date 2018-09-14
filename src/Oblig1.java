@@ -170,7 +170,7 @@ public class Oblig1 {
         // Hvis vi har en ren par/oddetall tabell, saa sorterer vi alt med
         // engang, saa slipper vi bruke tid paa soke/bytte index
         if (partall == 0 || oddetall == 0) {
-            kvikksortering(a, 0, a.length-1);
+            kvikksortering1(a, 0, a.length-1);
         }
 
         // Siden vi skal segregere par/oddetall, er det lurt aa soke
@@ -198,9 +198,20 @@ public class Oblig1 {
 
     }
 
+
+
     public static boolean inneholdt(String a, String b) {
 
-   
+        char[] stringA = a.toCharArray();
+        char[] stringB = b.toCharArray();
+
+        kvikksorteringChar(stringA,0, stringA.length-1);
+        kvikksorteringChar(stringB, 0, stringB.length-1);
+
+        return inklusjon(stringA, stringB);
+
+
+       // return false;
     }
 
     public static void rotasjon(char[] a) {
@@ -252,6 +263,31 @@ public class Oblig1 {
     /* Tommy sine egene metoder, og metoder fra boka.
 
      */
+
+    public static boolean inklusjon(char[] a, char[] b, int c, int d) {
+        int i = 0;
+        int j = 0;
+
+        while (i < c && j < d) {
+            if (a[i] > b[j]) {
+                j++;
+        } else if (a[i] == b[j]) {
+                i++;
+                j++;
+            } else if (a[i] < b[j]) {
+                return false;
+            }
+        }
+        if (i < c) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean inklusjon(char[] a, char[] b) {
+        return inklusjon(a, b, a.length, b.length);
+    }
 
     // Finner antall partall i et gitt array
     public static int antPartall(int[] a) {
@@ -330,6 +366,55 @@ public class Oblig1 {
     {
         kvikksortering1(a, fra, til - 1);  // v = fra, h = til - 1
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void byttChar(char[] a, int fra, int til) {
+        char temp = a[fra];
+        a[fra] = a[til];
+        a[til] = temp;
+    }
+
+
+    public static void kvikksorteringChar(char[] a, int fra, int til) {
+        if (a == null || a.length == 0) {
+            return;
+        }
+
+        if (fra >= til) {
+            return;
+        }
+
+        int midtpunkt = fra + (til - fra) / 2;
+        int skilleverdi = a[midtpunkt];
+
+        int i = fra;
+        int j = til;
+
+        while (i <= j) {
+            while (a[i] < skilleverdi) {
+                i++;
+            }
+            while (a[j] > skilleverdi) {
+                j--;
+            }
+            if (i <= j) {
+                byttChar(a, i, j);
+                i++;
+                j--;
+            }
+        }
+        if (fra < til) {
+            kvikksorteringChar(a, fra, j);
+        }
+        if (til > fra) {
+            kvikksorteringChar(a,i,til );
+        }
+    }
+
 
 
 }

@@ -1,5 +1,4 @@
 
-
 ////// Testprogram for Oblig 1 - 2018 ////////////////////////
 
 /*
@@ -30,7 +29,7 @@ public class Oblig1Test {
         //antallFeil += oppgave7();
         //antallFeil += oppgave8();
         //antallFeil += oppgave9();
-        //antallFeil += oppgave10();
+        antallFeil += oppgave10();
 
         if (antallFeil == 0) {
             System.out.println("Gratulerer!! Du passerte testen!");
@@ -39,6 +38,7 @@ public class Oblig1Test {
                     + antallFeil + " feil eller svakheter!");
         }
     }
+
     ///// Oppgave 1 //////////////////////////////////////
 
     public static int oppgave1() {
@@ -949,6 +949,7 @@ public class Oblig1Test {
                     ("Oppgave 10: o) Svaret skal bli lik false her!");
             antallFeil++;
         }
+
         return antallFeil;
     }
 
