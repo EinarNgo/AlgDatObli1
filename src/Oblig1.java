@@ -1,3 +1,6 @@
+// Tommy Gabrielsen - s320884
+
+
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
@@ -199,14 +202,17 @@ public class Oblig1 {
     }
 
 
-
+    // oppgave 10
     public static boolean inneholdt(String a, String b) {
 
+        // Lagrer strengene som char array, da kan vi sortere over dem
         char[] stringA = a.toCharArray();
         char[] stringB = b.toCharArray();
 
+        // bruker en quicksort for char arrays
         kvikksorteringChar(stringA,0, stringA.length-1);
         kvikksorteringChar(stringB, 0, stringB.length-1);
+
 
         return inklusjon(stringA, stringB);
 
@@ -214,6 +220,7 @@ public class Oblig1 {
        // return false;
     }
 
+    // Oppgave 5
     public static void rotasjon(char[] a) {
         if (a.length <= 0 || a == null) return;
 
@@ -225,7 +232,7 @@ public class Oblig1 {
         a[0] = temp;
     }
 
-
+    // Oppgave 6
     public static void rotasjon(char[] a, int d) {
 
         int lengde = a.length;
@@ -264,6 +271,7 @@ public class Oblig1 {
 
      */
 
+    // skrevet om fra laerebok
     public static boolean inklusjon(char[] a, char[] b, int c, int d) {
         int i = 0;
         int j = 0;
@@ -372,41 +380,51 @@ public class Oblig1 {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // bytter char verdi
     public static void byttChar(char[] a, int fra, int til) {
         char temp = a[fra];
         a[fra] = a[til];
         a[til] = temp;
     }
 
-
+    // Siden den andre kvikksort ikke klarte mer enn 1000 elementer, brukes denne
     public static void kvikksorteringChar(char[] a, int fra, int til) {
+        // Vi har ikke noe arbeid å gjore, saa vi returnerer
         if (a == null || a.length == 0) {
             return;
         }
-
+        // Vi har ikke noe arbeid å gjore, saa vi returnerer
         if (fra >= til) {
             return;
         }
 
+        // formel for midtpunkt
         int midtpunkt = fra + (til - fra) / 2;
+        // finner verdi til midtpunkt
         int skilleverdi = a[midtpunkt];
 
         int i = fra;
         int j = til;
 
+        // itererer
         while (i <= j) {
+            // verdier som er mindre enn skilleverdi
             while (a[i] < skilleverdi) {
                 i++;
             }
+            // verdier som er storre enn skilleverdi
             while (a[j] > skilleverdi) {
                 j--;
             }
+
             if (i <= j) {
                 byttChar(a, i, j);
                 i++;
                 j--;
             }
         }
+
+        // rekursive kall
         if (fra < til) {
             kvikksorteringChar(a, fra, j);
         }
