@@ -54,11 +54,12 @@ public class Oblig1 {
         boolean check = true;
         int teller=0;
 
+        //legger til en verdi på teller hvis arrayed ikke er null
         if (a.length!=0) {
             teller++;
         }
 
-        //Looper gjennom og ser om tabellen stiger
+        //Looper gjennom arrayed og legger til verdier hvis de er ulike og ser om tabellen stiger
         for (int i = 0; i <a.length-1; ++i) {
             if (a[i] != a[i+1]) {
                 teller++;
@@ -78,8 +79,7 @@ public class Oblig1 {
     }
 
 
-    //Oppgave 3, metode som looper igjennom som oppgave to, men kan også ha mange like verdier stokket i en array
-    //Sender heller ikke feilkode når tabellen ikke er sortert
+    //Oppgave 3, metode som looper igjennom arrayed og teller hvor mange ulike verdier, tabellen er usortert
     public static int antallUlikeUsortert(int[] a) {
 
         int teller = 0;
@@ -87,6 +87,7 @@ public class Oblig1 {
 
         //Looper gjennom tabellen og teller antall ulike verdier
         for (int i = 0; i < a.length; ++i) {
+            //Ekstra boolean for sjekke om tallet er likt
             check = false;
             for (int j = 0; j<i; ++j) {
 
@@ -95,6 +96,7 @@ public class Oblig1 {
                     break;
                 }
             }
+            //Legger til verdi hvis checken var true
             if (!check) {
                 teller++;
             }
@@ -103,6 +105,7 @@ public class Oblig1 {
         return teller;
     }
 
+    //oppgave 4
     public static void delsortering(int[] a) {
         // Sjekker forst om array kun har ett element, eller er tomt
         if (a.length <= 1) {
@@ -225,12 +228,11 @@ public class Oblig1 {
     public static String flett(String... s) {
         String flettet = "";
 
-        int antallKolonner = s.length;
-        int temp=3;
-
+        //sjekker om den er tom
         if (s.length!=0) {
             int lengde = s[0].length();
 
+            //finner den lengste verdien
             for (int i = 0; i<s.length-1; ++i) {
 
                 if (s[i].length()<=s[i+1].length()) {
@@ -238,6 +240,7 @@ public class Oblig1 {
                 }
             }
 
+            //dobbel forløkke til å legge til verdi fra hver streng til alle strengene er tomme
             for (int i = 0; i < lengde; ++i) {
 
                 for (int j = 0; j < s.length; ++j) {
@@ -259,12 +262,14 @@ public class Oblig1 {
         int[] temp = new int[a.length];                 //Lager en hjelpetabell
         int[] indeks = new int[a.length];
 
+        //kompierer hovedarrayed
         for (int i=0; i < a.length; ++i) {
             temp[i] = a[i];
         }
 
         bubblesort(temp);                               //Sorterer tabellen med bubblesort
 
+        //Gir Arrayed indeksene sammenlignet med hovedtabellen
         for (int i = 0; i<a.length; ++i) {
             for (int j = 0; j < a.length; ++j) {
 
@@ -277,31 +282,33 @@ public class Oblig1 {
         return indeks;
     }
 
-    //oppgave 9, finne indeksene til de tre minste verdiene i tabellen og opprett hjelpetabell som viser det
-    //skal ikke ha en fullstendig sortering siden den vil gjøre algoritmen tregere og skape bug
-    //Punkt 2. skal kase Exception hvis tabellen er kortere enn 3 verdier eller tabellen inneholder ugyldige verdier
-    //Hjelpetabellen skal vise verdien til den minste først og i stiffende rekkefølge.
-
+    //oppgave 9 finne de tre minste verdiene og returner indeksen på de
     public static int[] tredjeMin(int[] a) {
 
+        //Sjekker om de har mer enn 3 elementer
         if (a.length <3) {
             throw new NoSuchElementException("Tabellen inneholder ikke nok verdier. OutOfBoundException");
         }
 
+        //Lager hjelpetabell
         int[] b = new int[3];
 
+        //Kopierer de tre første verdiene
         for (int i = 0; i < b.length; ++i) {
             b[i] = a[i];
         }
 
+        //Sorterer de tre første verdiene for å vite hvem som er minst
         int[] indeks = indekssortering(b);
 
 
+        //Gir m,nm,tm verdier etter synkende rekkefølge
         int m = b[indeks[0]];
         int nm = b[indeks[1]];
         int tm = b[indeks[2]];
 
 
+        //Sammenligner, starter på 3 siden vi vet allerede de tre første verdiene
         for (int i = 3; i < a.length; ++i) {
             int tmp = a[i];
 
@@ -318,6 +325,7 @@ public class Oblig1 {
             }
         }
 
+        //Siden vi kun fant hva som er minst i forrige loop, må vi sammenligne og finne hvilken indeks de lå på
         for (int i = 0; i<a.length; ++i) {
             if (a[i] == tm) {
                 b[2] = i;
@@ -351,12 +359,14 @@ public class Oblig1 {
         // return false;
     }
 
+    //Hentet fra læreboka og notat
     public static void bubblesort(int[] a) {
         for (int i = 0; i<a.length; ++i) {
             bubble(a);
         }
     }
 
+    //Hentet fra læreboka og notat
     public static void bubble(int[] a) {
         for (int i = 0; i<a.length-1; ++i) {
             if (a[i] > a[i+1]) {
