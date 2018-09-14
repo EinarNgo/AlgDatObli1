@@ -1,14 +1,55 @@
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
+
+// Tommy Gabrielsen - s320884
+
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
 
+    public static int ombyttinger(int[] a) {
+        // sjekker at i ikke har et tomt aray
+        if (a.length < 1) {
+            throw new IllegalArgumentException("Illegal verdi");
+        }
+
+        int tellerOmbytte = 0;
+        // vi setter a.length-1 fordi vi vil unngaa array out of bounds,
+        // naar vi skal bytte siste element.
+        for (int i = 0; i < a.length-1; i++) {
+            if (a[i] > a[i+1]) {
+                ++tellerOmbytte;
+                int temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+            }
+        }
+
+        return tellerOmbytte;
+    }
+
+    public static int maks(int[] a) {
+        // sjekker at i ikke har et tomt aray
+        if (a.length < 1) {
+            throw new NoSuchElementException("Illegal verdi");
+        }
+
+        // vi setter a.length-1 fordi vi vil unngaa array out of bounds,
+        // naar vi skal bytte siste element.
+        for (int i = 0; i < a.length-1; i++) {
+            if (a[i] > a[i+1]) {
+                int temp = a[i];
+                a[i] = a[i+1];
+                a[i+1] = temp;
+            }
+        }
+        return a[a.length-1];
+    }
 
     //Oppgave 2, metode som looper igjennom og sjekker om tabellen stiger, thrower Exception vis
     //tabellen ikke stiger. Den teller også antall ulike verdier den har i tabellen
     public static int antallUlikeSortert(int[] a) {
-
 
         boolean check = true;
         int teller=0;
@@ -31,6 +72,7 @@ public class Oblig1 {
         if (!check) {
             throw new IllegalStateException("Ikke sortert");
         }
+
         return teller;
 
     }
@@ -38,7 +80,7 @@ public class Oblig1 {
 
     //Oppgave 3, metode som looper igjennom som oppgave to, men kan også ha mange like verdier stokket i en array
     //Sender heller ikke feilkode når tabellen ikke er sortert
-    public static int antallUlikesortert(int[] a) {
+    public static int antallUlikeUsortert(int[] a) {
 
         int teller = 0;
         boolean check;
@@ -59,6 +101,98 @@ public class Oblig1 {
         }
 
         return teller;
+    }
+
+    public static void delsortering(int[] a) {
+        // Sjekker forst om array kun har ett element, eller er tomt
+        if (a.length <= 1) {
+            return;
+        }
+
+        // Soke index
+        int left = 0;
+        int right = a.length-1;
+
+        // Finner antall oddetall/partall
+        int oddetall = antOddetall(a);
+        int partall = antPartall(a);
+
+        // Hvis vi har en ren par/oddetall tabell, saa sorterer vi alt med
+        // engang, saa slipper vi bruke tid paa soke/bytte index
+        if (partall == 0 || oddetall == 0) {
+            kvikksortering1(a, 0, a.length-1);
+        }
+
+        // Siden vi skal segregere par/oddetall, er det lurt aa soke
+        // fra begge sider i array. Finner vi et partall paa en side,
+        // og det er oddetall paa den andre posisjonen bytter vi dem
+        while (left < right) {
+            while ((a[left] & 1) == 1 && left < right) {
+                left++;
+            }
+            while ((a[right] & 1) == 0 && left < right) {
+                right--;
+            }
+            if (left < right) {
+                int temp = a[left];
+                a[left] = a[right];
+                a[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        // Kaller kvikksort (fra laereboka) og sorterer den ferdig segregerte
+        // tabellen
+        kvikksortering(a,0,oddetall);
+        kvikksortering(a,oddetall, a.length);
+
+    }
+
+
+    // Oppgave 5
+    public static void rotasjon(char[] a) {
+        if (a.length <= 0 || a == null) return;
+
+        char temp = a[a.length-1];
+
+        for (int i = a.length-2; i >= 0; i--) {
+            a[i+1] = a[i];
+        }
+        a[0] = temp;
+    }
+
+    // Oppgave 6
+    public static void rotasjon(char[] a, int d) {
+
+        int lengde = a.length;
+        if (lengde < 2) {
+            return;// ingen rotasjon
+        }
+
+        // Vi sjekker her om d er negativ
+        if ((d %= lengde) < 0) {
+            d += lengde;
+        }
+
+        // Hvis vi har en veldig stor d, altsaa vi onsker aa rotere
+        // 832 ganger, kan vi bruke gcd for aa finne hvor mange steg
+        // vi skal flytte. Si at en tabell er 10 lang, og skal flyttes
+        // 22 plasser, saa er det det samme som aa flytte 2 plasser.
+        int s = gcd(lengde, d);
+
+        // Bruker s vi regnet ut fra gcd
+        for (int k = 0; k < s; k++) {
+
+            // lagrer variabel middlertidlig
+            char temp = a[k];
+
+            for (int i = k - d, j = k; i != k; i -= d) { // løkke
+                if (i < 0) i += lengde;                        // sjekker fortegnet til i
+                a[j] = a[i]; j = i;                       // kopierer og oppdaterer j
+            }
+
+            a[k + d] = temp;                           // legger tilbake verdien
+        }
     }
 
     //Oppgave 7a, fletter sammen to strenger til en felles
@@ -90,6 +224,9 @@ public class Oblig1 {
     //Oppgave 7b, fletter sammen x antall stringer til en string
     public static String flett(String... s) {
         String flettet = "";
+
+        int antallKolonner = s.length;
+        int temp=3;
 
         if (s.length!=0) {
             int lengde = s[0].length();
@@ -159,15 +296,6 @@ public class Oblig1 {
 
         int[] indeks = indekssortering(b);
 
-        /*
-        a[0] = b[indeks[0]];
-        a[1] = b[indeks[1]];
-        a[2] = b[indeks[2]];
-
-        int m = a[0];
-        int nm = a[1];
-        int tm = a[2];
-        */
 
         int m = b[indeks[0]];
         int nm = b[indeks[1]];
@@ -205,6 +333,24 @@ public class Oblig1 {
         return new int[] {b[0],b[1],b[2]};
     }
 
+    // oppgave 10
+    public static boolean inneholdt(String a, String b) {
+
+        // Lagrer strengene som char array, da kan vi sortere over dem
+        char[] stringA = a.toCharArray();
+        char[] stringB = b.toCharArray();
+
+        // bruker en quicksort for char arrays
+        kvikksorteringChar(stringA,0, stringA.length-1);
+        kvikksorteringChar(stringB, 0, stringB.length-1);
+
+
+        return inklusjon(stringA, stringB);
+
+
+        // return false;
+    }
+
     public static void bubblesort(int[] a) {
         for (int i = 0; i<a.length; ++i) {
             bubble(a);
@@ -221,32 +367,167 @@ public class Oblig1 {
         }
     }
 
+    /* Tommy sine egene metoder, og metoder fra boka.
 
-    public static int bokstaver(String[] s) {
-        int antallBokstaver = s[0].length();
+     */
 
-        for (int i = 0; i < s.length-1;++i) {
-            if (s[i].length()<s[i+1].length()) {
-                antallBokstaver = s[i+1].length();
+    // skrevet om fra laerebok
+    public static boolean inklusjon(char[] a, char[] b, int c, int d) {
+        int i = 0;
+        int j = 0;
+
+        while (i < c && j < d) {
+            if (a[i] > b[j]) {
+                j++;
+        } else if (a[i] == b[j]) {
+                i++;
+                j++;
+            } else if (a[i] < b[j]) {
+                return false;
+            }
+        }
+        if (i < c) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean inklusjon(char[] a, char[] b) {
+        return inklusjon(a, b, a.length, b.length);
+    }
+
+    // Finner antall partall i et gitt array
+    public static int antPartall(int[] a) {
+        int antPartall = 0;
+        // Bruker bitwise & maske for aa sjekke hvert element
+        for (int i = 0; i < a.length; i++) {
+            if ((a[i] & 1) == 0) {
+                antPartall++;
+            }
+        }
+        return antPartall;
+    }
+
+    // Finner antall oddetall i et gitt array
+    public static int antOddetall(int[] a) {
+        int antOdeetall = 0;
+        // Bruker bitwise & maske for aa sjekke hvert element
+        for (int i = 0; i < a.length; i++) {
+            if ((a[i] & 1) == 1) {
+                antOdeetall++;
+            }
+        }
+        return antOdeetall;
+    }
+
+    public static int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    public static void bytt(int[] c, int i, int j) {
+        int temp = c[i];
+        c[i] = c[j];
+        c[j] = temp;
+    }
+
+    public static int parter(int[] a, int v, int h, int skilleverdi) {
+        while (v <= h && a[v] < skilleverdi) {
+            v++;     // h er stoppverdi for v
+        }
+        while (v <= h && a[h] >= skilleverdi) {
+            h--;    // v er stoppverdi for h
+        }
+        while (true) // stopper når v >= h
+        {
+            if (v < h) {
+                bytt(a, v++, h--);          // bytter om a[v] og a[h]
+            } else {
+                return v;                             // partisjoneringen er ferdig
+            }
+            while (a[v] < skilleverdi) {
+                v++;             // flytter v mot høyre
+            }
+            while (a[h] >= skilleverdi) {
+                h--;            // flytter h mot venstre
+            }
+        }
+    }
+
+    public static int sParter(int[] a, int v, int h, int indeks) {
+        bytt(a, indeks, h);   // skilleverdi a[indeks] flyttes bakerst
+        int k = parter(a, v, h - 1, a[h]);  // partisjonerer a[v:h − 1]
+        bytt(a, k, h);       // bytter for å få skilleverdien på rett plass
+        return k;                   // returnerer posisjonen til skilleverdien
+    }
+
+    private static void kvikksortering1(int[] a, int v, int h) { // en privat metode
+        if (v >= h) {
+            return;  // a[v:h] er tomt eller har maks ett element
+        }
+        int k = sParter(a, v, h, (v + h) / 2);  // bruker midtverdien
+        kvikksortering1(a, v, k - 1);     // sorterer intervallet a[v:k-1]
+        kvikksortering1(a, k + 1, h);     // sorterer intervallet a[k+1:h]
+    }
+
+    public static void kvikksortering(int[] a, int fra, int til) // fra/til i sortering
+    {
+        kvikksortering1(a, fra, til - 1);  // v = fra, h = til - 1
+    }
+
+    // bytter char verdi
+    public static void byttChar(char[] a, int fra, int til) {
+        char temp = a[fra];
+        a[fra] = a[til];
+        a[til] = temp;
+    }
+
+    // Siden den andre kvikksort ikke klarte mer enn 1000 elementer, brukes denne
+    public static void kvikksorteringChar(char[] a, int fra, int til) {
+        // Vi har ikke noe arbeid å gjore, saa vi returnerer
+        if (a == null || a.length == 0) {
+            return;
+        }
+        // Vi har ikke noe arbeid å gjore, saa vi returnerer
+        if (fra >= til) {
+            return;
+        }
+
+        // formel for midtpunkt
+        int midtpunkt = fra + (til - fra) / 2;
+        // finner verdi til midtpunkt
+        int skilleverdi = a[midtpunkt];
+
+        int i = fra;
+        int j = til;
+
+        // itererer
+        while (i <= j) {
+            // verdier som er mindre enn skilleverdi
+            while (a[i] < skilleverdi) {
+                i++;
+            }
+            // verdier som er storre enn skilleverdi
+            while (a[j] > skilleverdi) {
+                j--;
+            }
+
+            if (i <= j) {
+                byttChar(a, i, j);
+                i++;
+                j--;
             }
         }
 
-        return antallBokstaver;
+        // rekursive kall
+        if (fra < til) {
+            kvikksorteringChar(a, fra, j);
+        }
+        if (til > fra) {
+            kvikksorteringChar(a,i,til );
+        }
     }
 
-    public static int maks(int[] a) {
-        if (a.length < 1) {
-            throw new IllegalArgumentException("Illegal verdi");
-        }
-        for (int i = 0; i < a.length-1; i++) {
-            if (a[i] > a[i+1]) {
-                int temp = a[i];
-                a[i] = a[i+1];
-                a[i+1] = temp;
-            }
 
-        }
-        return a[a.length-1];
-    }
 
 }

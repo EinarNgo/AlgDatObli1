@@ -19,19 +19,16 @@ public class Oblig1Test {
     public static void main(String[] args) {
         int antallFeil = 0;
 
-
-        //antallFeil += oppgave1();
+        antallFeil += oppgave1();
         antallFeil += oppgave2();
         antallFeil += oppgave3();
-        //antallFeil += oppgave4();
-        //antallFeil += oppgave5();
-        //antallFeil += oppgave6();
+        antallFeil += oppgave4();
+        antallFeil += oppgave5();
+        antallFeil += oppgave6();
         antallFeil += oppgave7();
         antallFeil += oppgave8();
         antallFeil += oppgave9();
-
-        //antallFeil += oppgave10();
-
+        antallFeil += oppgave10();
 
         if (antallFeil == 0) {
             System.out.println("Gratulerer!! Du passerte testen!");
@@ -39,13 +36,10 @@ public class Oblig1Test {
             System.out.println("Må forbedres! Du har minst "
                     + antallFeil + " feil eller svakheter!");
         }
-
-
     }
 
     ///// Oppgave 1 //////////////////////////////////////
 
-    /*
     public static int oppgave1() {
         int antallFeil = 0;
 
@@ -97,9 +91,9 @@ public class Oblig1Test {
         }
         return antallFeil;
     }
-    */
 
 ///// Oppgave 2 //////////////////////////////////////
+
 
     public static int oppgave2() {
         int antallFeil = 0;
@@ -140,18 +134,17 @@ public class Oblig1Test {
         int[] e = {1, 2, 3, 4, 5, 6, 7};
         int[] f = {1, 1, 2, 2, 2, 3, 4, 4, 5, 6, 6, 6, 6, 7};
 
-
         if (Oblig1.antallUlikeSortert(a) != 0
                 || Oblig1.antallUlikeSortert(b) != 1
                 || Oblig1.antallUlikeSortert(d) != 1
                 || Oblig1.antallUlikeSortert(e) != 7
                 || Oblig1.antallUlikeSortert(f) != 7) {
             System.out.println("Oppgave 2: d) Metoden gir feil resultat!");
-            System.out.println(Oblig1.antallUlikeSortert(b));
             antallFeil++;
         }
         return antallFeil;
     }
+
 
     ///// Oppgave 3 //////////////////////////////////////
 
@@ -167,20 +160,20 @@ public class Oblig1Test {
         int[] f = {1, 2, 2, 2, 2, 2, 3};
 
         try {
-            Oblig1.antallUlikesortert(a);  // kaller metoden
-            Oblig1.antallUlikesortert(b);  // kaller metoden
+            Oblig1.antallUlikeUsortert(a);  // kaller metoden
+            Oblig1.antallUlikeUsortert(b);  // kaller metoden
         } catch (Exception ex) {
             System.out.println
                     ("Oppgave 3: a) Ikke unntak for tabell med 0 eller 1 verdi!");
             antallFeil++;
         }
 
-        if (Oblig1.antallUlikesortert(a) != 0
-                || Oblig1.antallUlikesortert(b) != 1
-                || Oblig1.antallUlikesortert(c) != 1
-                || Oblig1.antallUlikesortert(d) != 6
-                || Oblig1.antallUlikesortert(e) != 5
-                || Oblig1.antallUlikesortert(f) != 3) {
+        if (Oblig1.antallUlikeUsortert(a) != 0
+                || Oblig1.antallUlikeUsortert(b) != 1
+                || Oblig1.antallUlikeUsortert(c) != 1
+                || Oblig1.antallUlikeUsortert(d) != 6
+                || Oblig1.antallUlikeUsortert(e) != 5
+                || Oblig1.antallUlikeUsortert(f) != 3) {
             System.out.println("Oppgave 3: b) Metoden gir feil resultat!");
             antallFeil++;
         }
@@ -193,7 +186,6 @@ public class Oblig1Test {
         return antallFeil;
     }
 
-    /*
     ///// Oppgave 4 //////////////////////////////////////
 
     public static int oppgave4() {
@@ -506,7 +498,6 @@ public class Oblig1Test {
 
         return antallFeil;
     }
-    */
 
     ///// Oppgave 7 //////////////////////////////////////
 
@@ -591,14 +582,12 @@ public class Oblig1Test {
             System.out.println(e);
             System.out.println
                     ("Oppgave 7b: a) Skal ikke kaste unntak for en tom tabell!");
-            System.out.println(Arrays.toString(a));
             antallFeil++;
         }
 
         if (s.compareTo("") != 0) {
             System.out.println
                     ("Oppgave 7b: b) Svaret skal bli lik en tom streng!");
-            System.out.println(s);
             antallFeil++;
         }
 
@@ -622,7 +611,6 @@ public class Oblig1Test {
         if (s.compareTo("ALGORITMER OG DATASTRUKTURER") != 0) {
             System.out.println
                     ("Oppgave 7b: e) Svaret skal bli ALGORITMER OG DATASTRUKTURER!");
-            System.out.println(s);
             antallFeil++;
         }
 
@@ -740,7 +728,6 @@ public class Oblig1Test {
         return antallFeil;
     }
 
-
     ///// Oppgave 9 //////////////////////////////////////
 
     public static int oppgave9() {
@@ -832,8 +819,6 @@ public class Oblig1Test {
         return antallFeil;
     }
 
-
-    /*
     ///// Oppgave 10 //////////////////////////////////////
 
     public static int oppgave10() {
@@ -967,7 +952,6 @@ public class Oblig1Test {
         }
         return antallFeil;
     }
-    */
 
     ///// Hjelpemetoder /////////////////////////////
 
